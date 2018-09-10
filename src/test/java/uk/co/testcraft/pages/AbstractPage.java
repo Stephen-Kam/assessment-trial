@@ -13,6 +13,7 @@ public abstract class AbstractPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         this.wait = new WebDriverWait(driver, 5);
+        driver.manage().window().maximize();
     }
 
     public void quit() {
