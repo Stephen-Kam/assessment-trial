@@ -1,8 +1,14 @@
 package uk.co.testcraft.stepDefs;
 
 import cucumber.api.java8.En;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import uk.co.testcraft.pages.PhpLoginPage;
 import uk.co.testcraft.pages.PhpRegisterPage;
 import uk.co.testcraft.pages.PhpTravelsHomePage;
 
@@ -12,6 +18,7 @@ public class PhpTravelStepDefs implements En {
 
     private PhpTravelsHomePage phpTravelsHomePage = new PhpTravelsHomePage(driver);
     private PhpRegisterPage phpRegisterPage = new PhpRegisterPage(driver);
+    private PhpLoginPage phpLoginPage = new PhpLoginPage(driver);
 
 
     public PhpTravelStepDefs() {
@@ -33,8 +40,24 @@ public class PhpTravelStepDefs implements En {
             phpRegisterPage.clickSignUp();
         });
 
-        Then("^The user will be on the register page$", () -> {
-            phpRegisterPage.checkUrl();
+        When("^They click on the login link$", () -> {
+            phpTravelsHomePage.clickLogin();
+        });
+
+        When("^They submit valid details$", () -> {
+            phpLoginPage.validLogin("test@test.com", "p2ssword");
+        });
+
+
+        Then("^The user will be on the login page$", () -> {
+            Assert.assertTrue("Login page is not displayed", driver.findElement(By.cssSelector("div[class='panel-heading']")).isDisplayed());;
+
+        });
+
+        Then("^The user will be on the profile page$", () -> {
+            WebElement myDynamicElement = (new WebDriverWait(driver, 5))
+                    .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("h3[class='RTL']")));
+            Assert.assertTrue("", driver.findElement(By.cssSelector("h3[class='RTL']")).getText().contentEquals("Hi, Bob Dole"));
         });
 
     }

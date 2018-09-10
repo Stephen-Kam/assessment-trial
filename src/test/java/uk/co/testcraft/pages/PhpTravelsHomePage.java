@@ -21,8 +21,15 @@ public class PhpTravelsHomePage extends AbstractPage {
         this.driver.get(URL);
     }
 
+    public void clickMyAccount(){driver.findElements(By.xpath("//*[@id=\"li_myaccount\"]/a")).get(1).click();}
+
+    public void clickLogin() {
+        clickMyAccount();
+        driver.findElements(By.xpath("//*[@id=\"li_myaccount\"]/ul/li[1]/a")).get(1).click();
+    }
+
     public void clickSignUp() {
-        driver.findElements(By.xpath("//*[@id=\"li_myaccount\"]/a")).get(1).click();
+        clickMyAccount();
         driver.findElements(By.xpath("//*[@id=\"li_myaccount\"]/ul/li[2]/a")).get(1).click();
     }
 

@@ -8,8 +8,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class PhpRegisterPage extends AbstractPage {
 
-    private static final String URL = "https://www.phptravels.net/";
-
     @FindBy(css = "div[class='panel-heading']")
     private WebElement signUpPanel;
 
@@ -36,10 +34,6 @@ public class PhpRegisterPage extends AbstractPage {
 
     public PhpRegisterPage(final WebDriver driver) {
         super(driver);
-    }
-
-    public void goTo() {
-        this.driver.get(URL);
     }
 
     public void checkUrl() {
